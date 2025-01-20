@@ -24,5 +24,5 @@
 
 ## 참여 방법
 1. GitHub 레포지토리 방문: [레포지토리 링크](https://github.com/DShomin/weekly-archive)
-2. Issue 탭에서 "New Issue"를 클릭하여 뉴스나 논문 정보를 작성.
+2. [Issue](https://github.com/DShomin/weekly-archive/issues) 탭에서 "New Issue"를 클릭하여 뉴스나 논문 정보를 작성.
 3. 매주 주말 모임에 참여하여 뉴스 및 논문에 대한 설명과 토론에 참여.
