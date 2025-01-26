@@ -24,5 +24,5 @@
 - **참여 중심**: 누구나 뉴스나 논문을 공유할 수 있으며, 의견 교환을 통해 다양한 견해를 나눌 수 있습니다.
 
 ## 금주
-- Github issue
+- [Github issue](https://github.com/DShomin/weekly-archive/issues/2)
 - 세션 진행 플랫폼: Discord (모각코 | 위클리 아카이브 채널)
