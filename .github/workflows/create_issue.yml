@@ -2,7 +2,8 @@ name: Weekly Issue Creator
 
 on:
   schedule:
-    - cron: "0 13 * * 0" # 매주 일요일 저녁 10시 (한국 시간 기준)
+    # - cron: "0 13 * * 0" # 매주 일요일 저녁 10시 (한국 시간 기준)
+    - cron: "*/5 * * * *" # 매주 일요일 저녁 10시 (한국 시간 기준)
 
 jobs:
   create-issue:
