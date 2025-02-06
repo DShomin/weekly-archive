@@ -19,25 +19,25 @@ jobs:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
-          LATEST_ISSUE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          API_RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/issues?state=all&per_page=1" | jq -r '.[0].title')
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/issues?state=all&per_page=1")
 
-          if [[ "$LATEST_ISSUE" =~ \- ([0-9]+)회차 ]]; then
-            LAST_COUNT=${BASH_REMATCH[1]}
+          echo "API RESPONSE: $API_RESPONSE"  # Debugging 출력
+
+          LATEST_ISSUE=$(echo "$API_RESPONSE" | jq -r '.[0].title')
+          echo "LATEST_ISSUE=$LATEST_ISSUE"
+
+          # 가장 마지막 회차 숫자만 추출
+          LAST_COUNT=$(echo "$LATEST_ISSUE" | grep -oE '[0-9]+회차' | grep -oE '[0-9]+')
+
+          if [[ -n "$LAST_COUNT" ]]; then
             NEXT_COUNT=$((LAST_COUNT + 1))
           else
             NEXT_COUNT=1
           fi
 
           echo "NEXT_COUNT=$NEXT_COUNT" >> $GITHUB_ENV
-
-      - name: Generate Issue Title
-        id: title
-        run: |
-          DATE=$(date -u +"%y%m%d")  # 실행 날짜 (UTC 기준)
-          TITLE="[$DATE] Weekly archive - ${NEXT_COUNT}회차"
-          echo "ISSUE_TITLE=$TITLE" >> $GITHUB_ENV
 
       - name: Create GitHub Issue
         env:
