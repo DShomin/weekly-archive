@@ -41,8 +41,8 @@ jobs:
       - name: Generate Issue Title
         id: title
         run: |
-          DATE=$(date -u +"%y%m%d")  # 실행 날짜 (UTC 기준)
-          TITLE="[$DATE] Weekly archive - ${NEXT_COUNT}회차"
+          NEXT_SUNDAY=$(date -d "next sunday +6 days" +"%y%m%d")  # 실행 날짜의 다음 주 일요일
+          TITLE="[$NEXT_SUNDAY] Weekly archive - ${NEXT_COUNT}회차"
           echo "Generated title: $TITLE"  # 로그 출력 (디버깅용)
           echo "ISSUE_TITLE=$TITLE" >> $GITHUB_ENV
           export ISSUE_TITLE="$TITLE"  # 환경 변수로 직접 등록
