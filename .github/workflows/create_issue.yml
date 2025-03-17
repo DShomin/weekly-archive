@@ -15,7 +15,7 @@ jobs:
       - name: Fetch latest issue number
         id: fetch_latest_issue
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           API_URL="https://api.github.com/repos/DShomin/weekly-archive/issues?state=all&per_page=1"
 
@@ -41,15 +41,16 @@ jobs:
       - name: Generate Issue Title
         id: title
         run: |
-          DATE=$(date -u +"%y%m%d")  # 실행 날짜 (UTC 기준)
+          # 다음 일요일 날짜 계산 (현재 날짜 + 7일)
+          DATE=$(date -d "+7 days" +"%y%m%d")
           TITLE="[$DATE] Weekly archive - ${NEXT_COUNT}회차"
           echo "Generated title: $TITLE"  # 로그 출력 (디버깅용)
           echo "ISSUE_TITLE=$TITLE" >> $GITHUB_ENV
-          export ISSUE_TITLE="$TITLE"  # 환경 변수로 직접 등록
+          export ISSUE_TITLE="$TITLE"
 
       - name: Create GitHub Issue
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ github.token }}
           ISSUE_TITLE: ${{ env.ISSUE_TITLE }}
         run: |
           API_URL="https://api.github.com/repos/DShomin/weekly-archive/issues"
