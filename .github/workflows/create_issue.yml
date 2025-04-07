@@ -8,6 +8,8 @@ on:
 jobs:
   create-issue:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write  # 이슈 생성 권한 추가
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -41,12 +43,11 @@ jobs:
       - name: Generate Issue Title
         id: title
         run: |
-          # 다음 일요일 날짜 계산 (현재 날짜 + 7일)
-          DATE=$(date -d "+7 days" +"%y%m%d")
+          # 다음 일요일 날짜 계산 (두 가지 방식 지원)
+          DATE=$(date -u -d "+7 days" +"%y%m%d" 2>/dev/null || date -v+7d +"%y%m%d")
           TITLE="[$DATE] Weekly archive - ${NEXT_COUNT}회차"
           echo "Generated title: $TITLE"  # 로그 출력 (디버깅용)
           echo "ISSUE_TITLE=$TITLE" >> $GITHUB_ENV
-          export ISSUE_TITLE="$TITLE"
 
       - name: Create GitHub Issue
         env:
@@ -54,8 +55,8 @@ jobs:
           ISSUE_TITLE: ${{ env.ISSUE_TITLE }}
         run: |
           API_URL="https://api.github.com/repos/DShomin/weekly-archive/issues"
-
-          curl -X POST \
+          
+          RESPONSE=$(curl -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             "$API_URL" \
@@ -63,4 +64,12 @@ jobs:
               "title": "'"$ISSUE_TITLE"'",
               "body": "이번 주의 주요 업데이트 내용을 기록하세요.",
               "labels": ["weekly", "automation"]
-            }'
+            }')
+          
+          echo "API Response: $RESPONSE"
+          
+          # 오류 확인
+          if echo "$RESPONSE" | grep -q "error"; then
+            echo "Error creating issue"
+            exit 1
+          fi
