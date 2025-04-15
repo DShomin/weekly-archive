@@ -1,0 +1,26 @@
+{
+    "name": "github-issue-summarizer",
+    "version": "1.0.0",
+    "description": "GitHub 이슈 코멘트를 하나로 정리해주는 도구",
+    "main": "src/index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node src/index.js",
+        "summarize": "node src/cli.js"
+    },
+    "keywords": [
+        "github",
+        "issues",
+        "comments",
+        "summarizer"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@langchain/community": "^0.0.26",
+        "@langchain/core": "^0.1.22",
+        "axios": "^1.6.2",
+        "dotenv": "^16.3.1",
+        "commander": "^11.1.0"
+    }
+}

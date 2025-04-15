@@ -1,0 +1,30 @@
+# 노드 모듈
+node_modules/
+
+# 환경 변수
+.env
+
+# 로그
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 출력 디렉토리
+dist/
+build/
+
+# OS 파일
+.DS_Store
+Thumbs.db
+
+# IDE 설정
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 기본 출력 파일
+issue-summary.md 
+
+package-lock.json
