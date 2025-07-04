@@ -1,0 +1,45 @@
+/* GitHub Issue Comment Extractor Styles */
+
+#extract-comments-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    transition: all 0.2s ease;
+}
+
+#extract-comments-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(9, 105, 218, 0.3) !important;
+}
+
+#extract-comments-btn:active {
+    transform: translateY(0);
+}
+
+#extract-comments-btn svg {
+    flex-shrink: 0;
+}
+
+/* 알림 애니메이션 */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification {
+    animation: slideInRight 0.3s ease-out;
+}
+
+/* 반응형 버튼 위치 */
+@media (max-width: 768px) {
+    #extract-comments-btn {
+        top: 60px !important;
+        right: 10px !important;
+        font-size: 12px !important;
+        padding: 6px 10px !important;
+    }
+}
