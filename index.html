@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기술 트렌드 아카이브 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="main-title">
+                    <i class="fas fa-microchip"></i>
+                    기술 트렌드 아카이브 2025
+                </h1>
+                <p class="subtitle">AI와 기술 혁신의 흐름을 한눈에</p>
+            </div>
+        </header>
+
+        <!-- 필터 및 검색 -->
+        <div class="controls">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="키워드로 검색하세요...">
+            </div>
+
+            <div class="filter-container">
+                <button class="filter-btn active" data-category="all">전체</button>
+                <button class="filter-btn" data-category="ai-model">AI 모델</button>
+                <button class="filter-btn" data-category="company">기업 동향</button>
+                <button class="filter-btn" data-category="policy">정부 정책</button>
+                <button class="filter-btn" data-category="tool">개발 도구</button>
+                <button class="filter-btn" data-category="startup">스타트업</button>
+            </div>
+        </div>
+
+        <!-- 통계 카드 -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="totalItems">0</div>
+                <div class="stat-label">총 뉴스</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="aiItems">0</div>
+                <div class="stat-label">AI 관련</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="companyItems">0</div>
+                <div class="stat-label">기업 동향</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="monthsSpan">6</div>
+                <div class="stat-label">개월 기간</div>
+            </div>
+        </div>
+
+        <!-- 타임라인 -->
+        <div class="timeline-container">
+            <div class="timeline" id="timeline">
+                <!-- 타임라인 아이템들이 JavaScript로 생성됩니다 -->
+            </div>
+        </div>
+
+        <!-- 로딩 스피너 -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>데이터를 로드 중입니다...</p>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="footer">
+            <p>&copy; 2025 기술 트렌드 아카이브. 모든 정보는 공개 소스에서 수집되었습니다.</p>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
