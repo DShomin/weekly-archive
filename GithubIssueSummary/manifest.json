@@ -1,0 +1,25 @@
+{
+    "manifest_version": 3,
+    "name": "GitHub Issue Comment Extractor",
+    "version": "1.0",
+    "description": "Extract GitHub issue comments to markdown format",
+    "permissions": [
+      "activeTab",
+      "scripting"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["https://github.com/*/*/issues/*"],
+        "js": ["content.js"],
+        "css": ["styles.css"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_title": "Extract Issue Comments"
+    },
+    "icons": {
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+}
