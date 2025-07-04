@@ -55,8 +55,42 @@
                 <div class="stat-label">기업 동향</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="monthsSpan">6</div>
-                <div class="stat-label">개월 기간</div>
+                <div class="stat-number" id="totalHashtags">0</div>
+                <div class="stat-label">총 해시태그</div>
+            </div>
+        </div>
+
+        <!-- 해시태그 분석 -->
+        <div class="hashtag-section">
+            <div class="hashtag-header">
+                <h2><i class="fas fa-hashtag"></i> 인기 해시태그 TOP 10</h2>
+                <button class="toggle-btn" id="hashtagToggle">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+
+            <div class="hashtag-content" id="hashtagContent">
+                <div class="hashtag-stats">
+                    <div class="hashtag-stat">
+                        <span class="hashtag-stat-number" id="uniqueHashtags">0</span>
+                        <span class="hashtag-stat-label">고유 해시태그</span>
+                    </div>
+                    <div class="hashtag-stat">
+                        <span class="hashtag-stat-number" id="totalHashtagCount">0</span>
+                        <span class="hashtag-stat-label">전체 사용량</span>
+                    </div>
+                </div>
+
+                <div class="hashtag-ranking" id="hashtagRanking">
+                    <!-- 해시태그 순위가 JavaScript로 생성됩니다 -->
+                </div>
+
+                <div class="hashtag-filter">
+                    <input type="text" id="hashtagSearch" placeholder="해시태그로 필터링...">
+                    <div class="hashtag-cloud" id="hashtagCloud">
+                        <!-- 해시태그 클라우드가 JavaScript로 생성됩니다 -->
+                    </div>
+                </div>
             </div>
         </div>
 
