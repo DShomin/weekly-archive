@@ -352,6 +352,31 @@ body {
     text-decoration: underline;
 }
 
+/* 타임라인 아이템 해시태그 */
+.item-hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: var(--spacing-sm) 0;
+}
+
+.item-hashtags .hashtag-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent-color);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.item-hashtags .hashtag-tag:hover {
+    background: rgba(99, 102, 241, 0.2);
+    color: var(--primary-light);
+    transform: translateY(-1px);
+}
+
 /* 카테고리별 색상 */
 .category-ai-model {
     background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
@@ -479,6 +504,252 @@ body {
     }
 }
 
+/* 해시태그 섹션 */
+.hashtag-section {
+    background: var(--bg-card);
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: var(--spacing-2xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hashtag-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hashtag-header h2 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.hashtag-header h2 i {
+    color: var(--accent-color);
+}
+
+.toggle-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.toggle-btn i {
+    transition: transform 0.3s ease;
+}
+
+.toggle-btn.rotated i {
+    transform: rotate(180deg);
+}
+
+.hashtag-content {
+    padding: var(--spacing-lg);
+    max-height: 1000px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.hashtag-content.collapsed {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.hashtag-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 0.75rem;
+}
+
+.hashtag-stat {
+    text-align: center;
+}
+
+.hashtag-stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-light);
+    margin-bottom: var(--spacing-xs);
+}
+
+.hashtag-stat-label {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.hashtag-ranking {
+    margin-bottom: var(--spacing-lg);
+}
+
+.hashtag-rank-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 0.5rem;
+    margin-bottom: var(--spacing-sm);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.hashtag-rank-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+}
+
+.hashtag-rank-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-light);
+    min-width: 2rem;
+    text-align: center;
+}
+
+.hashtag-rank-tag {
+    flex: 1;
+    margin-left: var(--spacing-md);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.hashtag-rank-count {
+    background: var(--primary-color);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.hashtag-filter {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: var(--spacing-lg);
+}
+
+#hashtagSearch {
+    width: 100%;
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: 0.75rem;
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-lg);
+    transition: all 0.3s ease;
+}
+
+#hashtagSearch:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.hashtag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.hashtag-tag {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    color: var(--text-primary);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.hashtag-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.hashtag-tag:hover::before {
+    left: 100%;
+}
+
+.hashtag-tag:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.hashtag-tag.active {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-light));
+    color: white;
+}
+
+.hashtag-tag-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.5rem;
+    margin-left: var(--spacing-xs);
+}
+
+@media (max-width: 768px) {
+    .hashtag-header {
+        padding: var(--spacing-md);
+    }
+
+    .hashtag-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .hashtag-content {
+        padding: var(--spacing-md);
+    }
+
+    .hashtag-stats {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        padding: var(--spacing-md);
+    }
+
+    .hashtag-rank-item {
+        padding: var(--spacing-sm);
+    }
+
+    .hashtag-rank-number {
+        font-size: 1rem;
+    }
+}
+
 @media (max-width: 480px) {
     .stats-container {
         grid-template-columns: 1fr;
@@ -490,5 +761,14 @@ body {
 
     .timeline-item {
         padding: var(--spacing-md);
+    }
+
+    .hashtag-cloud {
+        gap: var(--spacing-xs);
+    }
+
+    .hashtag-tag {
+        font-size: 0.75rem;
+        padding: 0.25rem var(--spacing-sm);
     }
 }

@@ -3,6 +3,8 @@ let currentCategory = 'all';
 let currentSearchTerm = '';
 let filteredData = [];
 let isLoading = true;
+let hashtagData = null;
+let selectedHashtags = new Set();
 
 // DOM 요소들
 const timelineElement = document.getElementById('timeline');
@@ -14,6 +16,16 @@ const loadingElement = document.getElementById('loading');
 const totalItemsElement = document.getElementById('totalItems');
 const aiItemsElement = document.getElementById('aiItems');
 const companyItemsElement = document.getElementById('companyItems');
+const totalHashtagsElement = document.getElementById('totalHashtags');
+
+// 해시태그 요소들
+const hashtagToggle = document.getElementById('hashtagToggle');
+const hashtagContent = document.getElementById('hashtagContent');
+const hashtagRanking = document.getElementById('hashtagRanking');
+const hashtagCloud = document.getElementById('hashtagCloud');
+const hashtagSearch = document.getElementById('hashtagSearch');
+const uniqueHashtagsElement = document.getElementById('uniqueHashtags');
+const totalHashtagCountElement = document.getElementById('totalHashtagCount');
 
 // 초기화
 document.addEventListener('DOMContentLoaded', function () {
@@ -26,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // 앱 초기화
 function initializeApp() {
     filteredData = [...techTrendData];
+    loadHashtagData();
     setupEventListeners();
     renderTimeline();
     updateStats();
@@ -125,6 +138,13 @@ function renderTimeline() {
             const categoryData = categoryInfo[item.category];
             const animationDelay = (sectionIndex * 0.1) + (itemIndex * 0.05);
 
+            // 해시태그 HTML 생성
+            const hashtagsHtml = item.hashtags && item.hashtags.length > 0
+                ? `<div class="item-hashtags">
+                    ${item.hashtags.map(tag => `<span class="hashtag-tag" data-hashtag="${tag}">#${tag}</span>`).join('')}
+                   </div>`
+                : '';
+
             return `
                 <div class="timeline-item" style="animation-delay: ${animationDelay}s">
                     <div class="item-category ${categoryData.color}">
@@ -133,6 +153,7 @@ function renderTimeline() {
                     </div>
                     <h3 class="item-title">${highlightSearchTerm(item.title)}</h3>
                     <p class="item-description">${highlightSearchTerm(item.description)}</p>
+                    ${hashtagsHtml}
                     <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="item-link">
                         <i class="fas fa-external-link-alt"></i>
                         자세히 보기
@@ -350,6 +371,155 @@ window.addEventListener('error', (event) => {
     console.error('앱 오류:', event.error);
     // 사용자에게 친화적인 오류 메시지 표시
 });
+
+// 해시태그 데이터 로드
+async function loadHashtagData() {
+    try {
+        const response = await fetch('hashtag_analysis.json');
+        hashtagData = await response.json();
+        setupHashtagEventListeners();
+        renderHashtagSection();
+        updateHashtagStats();
+    } catch (error) {
+        console.warn('해시태그 데이터를 로드할 수 없습니다:', error);
+        // 해시태그 섹션 숨기기
+        const hashtagSection = document.querySelector('.hashtag-section');
+        if (hashtagSection) {
+            hashtagSection.style.display = 'none';
+        }
+    }
+}
+
+// 해시태그 이벤트 리스너 설정
+function setupHashtagEventListeners() {
+    // 해시태그 토글 버튼
+    if (hashtagToggle) {
+        hashtagToggle.addEventListener('click', toggleHashtagSection);
+    }
+
+    // 해시태그 검색
+    if (hashtagSearch) {
+        hashtagSearch.addEventListener('input', debounce(handleHashtagSearch, 300));
+    }
+}
+
+// 해시태그 섹션 토글
+function toggleHashtagSection() {
+    const content = hashtagContent;
+    const button = hashtagToggle;
+
+    if (content.classList.contains('collapsed')) {
+        content.classList.remove('collapsed');
+        button.classList.remove('rotated');
+    } else {
+        content.classList.add('collapsed');
+        button.classList.add('rotated');
+    }
+}
+
+// 해시태그 검색 처리
+function handleHashtagSearch(event) {
+    const searchTerm = event.target.value.toLowerCase().trim();
+    renderHashtagCloud(searchTerm);
+}
+
+// 해시태그 섹션 렌더링
+function renderHashtagSection() {
+    if (!hashtagData) return;
+
+    renderHashtagRanking();
+    renderHashtagCloud();
+}
+
+// 해시태그 순위 렌더링
+function renderHashtagRanking() {
+    if (!hashtagData || !hashtagRanking) return;
+
+    const rankingHTML = hashtagData.top_10.map((item, index) => {
+        return `
+            <div class="hashtag-rank-item" onclick="toggleHashtagFilter('${item.tag}')">
+                <span class="hashtag-rank-number">${index + 1}</span>
+                <span class="hashtag-rank-tag">#${item.tag}</span>
+                <span class="hashtag-rank-count">${item.count}</span>
+            </div>
+        `;
+    }).join('');
+
+    hashtagRanking.innerHTML = rankingHTML;
+}
+
+// 해시태그 클라우드 렌더링
+function renderHashtagCloud(searchTerm = '') {
+    if (!hashtagData || !hashtagCloud) return;
+
+    let hashtags = Object.entries(hashtagData.all_hashtags);
+
+    // 검색어로 필터링
+    if (searchTerm) {
+        hashtags = hashtags.filter(([tag]) =>
+            tag.toLowerCase().includes(searchTerm)
+        );
+    }
+
+    // 사용 빈도순으로 정렬
+    hashtags.sort((a, b) => b[1] - a[1]);
+
+    // 최대 50개까지만 표시
+    hashtags = hashtags.slice(0, 50);
+
+    const cloudHTML = hashtags.map(([tag, count]) => {
+        const isActive = selectedHashtags.has(tag);
+        const activeClass = isActive ? 'active' : '';
+
+        return `
+            <span class="hashtag-tag ${activeClass}" onclick="toggleHashtagFilter('${tag}')">
+                #${tag}
+                <span class="hashtag-tag-count">${count}</span>
+            </span>
+        `;
+    }).join('');
+
+    hashtagCloud.innerHTML = cloudHTML;
+}
+
+// 해시태그 필터 토글
+function toggleHashtagFilter(tag) {
+    if (selectedHashtags.has(tag)) {
+        selectedHashtags.delete(tag);
+    } else {
+        selectedHashtags.add(tag);
+    }
+
+    renderHashtagCloud();
+    filterAndRender();
+}
+
+// 해시태그 통계 업데이트
+function updateHashtagStats() {
+    if (!hashtagData) return;
+
+    if (totalHashtagsElement) {
+        animateNumber(totalHashtagsElement, 0, hashtagData.total_hashtags);
+    }
+    if (uniqueHashtagsElement) {
+        animateNumber(uniqueHashtagsElement, 0, hashtagData.unique_hashtags);
+    }
+    if (totalHashtagCountElement) {
+        animateNumber(totalHashtagCountElement, 0, hashtagData.total_hashtags);
+    }
+}
+
+// 통계 업데이트 함수 수정 (해시태그 통계 포함)
+function updateStats() {
+    const allItems = getAllItems(filteredData);
+    const aiItems = allItems.filter(item => item.category === 'ai-model');
+    const companyItems = allItems.filter(item => item.category === 'company');
+
+    // 애니메이션과 함께 숫자 업데이트
+    animateNumber(totalItemsElement, parseInt(totalItemsElement.textContent) || 0, allItems.length);
+    animateNumber(aiItemsElement, parseInt(aiItemsElement.textContent) || 0, aiItems.length);
+    animateNumber(companyItemsElement, parseInt(companyItemsElement.textContent) || 0, companyItems.length);
+}
 
 // 모바일 터치 이벤트 최적화
 let startY;
