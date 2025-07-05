@@ -27,4 +27,7 @@ Thumbs.db
 # 기본 출력 파일
 issue-summary.md 
 
-package-lock.json
+package-lock.
+
+issues/
+summarize_MD/
