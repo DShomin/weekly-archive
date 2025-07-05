@@ -248,6 +248,11 @@ body {
 .timeline-section {
     margin-bottom: var(--spacing-2xl);
     position: relative;
+    padding: var(--spacing-lg);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
 }
 
 .timeline-date {
@@ -255,30 +260,32 @@ body {
     top: var(--spacing-lg);
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: 2rem;
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
     margin-bottom: var(--spacing-lg);
     margin-left: 1rem;
     display: inline-block;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
     z-index: 10;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .timeline-items {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
 }
 
 .timeline-item {
     position: relative;
     background: var(--bg-card);
-    border-radius: 1rem;
-    padding: var(--spacing-xl);
+    border-radius: 0.8rem;
+    padding: var(--spacing-md);
     margin-left: 1rem;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-md);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     opacity: 0;
@@ -317,27 +324,28 @@ body {
 
 .item-category {
     display: inline-block;
-    padding: var(--spacing-xs) var(--spacing-md);
+    padding: 0.2rem var(--spacing-sm);
     background: linear-gradient(135deg, var(--accent-color), var(--success-color));
     color: white;
-    border-radius: 1rem;
-    font-size: 0.875rem;
+    border-radius: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
 }
 
 .item-title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
     line-height: 1.4;
 }
 
 .item-description {
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: var(--spacing-md);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.95rem;
 }
 
 .item-link {
@@ -492,7 +500,7 @@ body {
 
     .timeline-item {
         margin-left: 0.5rem;
-        padding: var(--spacing-lg);
+        padding: var(--spacing-sm);
     }
 
     .timeline-item::before {
@@ -501,6 +509,13 @@ body {
 
     .timeline-date {
         margin-left: 0.5rem;
+        font-size: 1rem;
+        padding: 0.4rem var(--spacing-md);
+    }
+
+    .timeline-section {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
     }
 }
 
@@ -760,7 +775,18 @@ body {
     }
 
     .timeline-item {
-        padding: var(--spacing-md);
+        padding: var(--spacing-xs);
+        margin-left: 0.3rem;
+    }
+
+    .timeline-section {
+        padding: var(--spacing-sm);
+    }
+
+    .timeline-date {
+        font-size: 0.95rem;
+        padding: 0.3rem var(--spacing-sm);
+        margin-left: 0.3rem;
     }
 
     .hashtag-cloud {
