@@ -288,7 +288,7 @@ body {
     padding: var(--spacing-sm);
     box-shadow: var(--shadow-md);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     opacity: 0;
     animation: slideInRight 0.6s ease forwards;
     min-width: 200px;
@@ -297,6 +297,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
+    overflow: hidden;
 }
 
 @keyframes slideInRight {
@@ -312,8 +313,11 @@ body {
 }
 
 .timeline-item:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.05);
     box-shadow: var(--shadow-xl);
+    z-index: 100;
+    min-width: 250px;
+    max-width: 350px;
 }
 
 .timeline-item::before {
@@ -346,50 +350,32 @@ body {
 }
 
 .item-description {
-    display: none;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    font-size: 0.8rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+}
+
+.timeline-item:hover .item-description {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: var(--spacing-xs);
 }
 
 .item-link {
     display: none;
 }
 
-/* 툴팁 스타일 */
-.timeline-item .tooltip {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    padding: var(--spacing-sm);
-    border-radius: 0.5rem;
-    font-size: 0.85rem;
-    line-height: 1.4;
-    max-width: 300px;
-    white-space: normal;
-    word-wrap: break-word;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-xl);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+/* 호버 시 제목과 해시태그 레이아웃 조정 */
+.timeline-item:hover .item-title {
     margin-bottom: var(--spacing-xs);
 }
 
-.timeline-item .tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: var(--bg-secondary);
-}
-
-.timeline-item:hover .tooltip {
-    opacity: 1;
-    visibility: visible;
+.timeline-item:hover .item-hashtags {
+    margin-top: var(--spacing-sm);
 }
 
 /* 타임라인 아이템 해시태그 */
@@ -551,7 +537,9 @@ body {
         max-width: 200px;
     }
 
-    .timeline-item .tooltip {
+    .timeline-item:hover {
+        transform: translateY(-2px) scale(1.03);
+        min-width: 200px;
         max-width: 250px;
     }
 }
@@ -830,9 +818,14 @@ body {
         max-width: 180px;
     }
 
-    .timeline-item .tooltip {
+    .timeline-item:hover {
+        transform: translateY(-2px) scale(1.02);
+        min-width: 160px;
         max-width: 200px;
-        font-size: 0.8rem;
+    }
+
+    .timeline-item:hover .item-description {
+        font-size: 0.75rem;
     }
 
     .item-title {

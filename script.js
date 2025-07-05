@@ -152,11 +152,8 @@ function renderTimeline() {
                         ${categoryData.name}
                     </div>
                     <h3 class="item-title">${highlightSearchTerm(item.title)}</h3>
+                    <p class="item-description">${highlightSearchTerm(item.description)}</p>
                     ${hashtagsHtml}
-                    <div class="tooltip">
-                        <strong>${item.title}</strong><br>
-                        ${item.description}
-                    </div>
                 </div>
             `;
         }).join('');
